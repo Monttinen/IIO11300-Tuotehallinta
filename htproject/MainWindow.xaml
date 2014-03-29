@@ -8,9 +8,9 @@
                 <StackPanel Height="200">
                     <StackPanel Width="200">
                         <Label Content="User:" />
-                        <TextBox Margin="10" />
+                        <TextBox x:Name="tbUser" Margin="10" />
                         <Label Content="Password" />
-                        <PasswordBox Margin="10" />
+                        <PasswordBox x:Name="tbPassword" Margin="10" />
                         <Button x:Name="btnConnect" Content="Login" Click="Button_Click" />
                     </StackPanel>
                 </StackPanel>

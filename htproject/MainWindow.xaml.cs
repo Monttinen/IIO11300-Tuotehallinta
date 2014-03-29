@@ -26,7 +26,8 @@ namespace ProductManagement
     private ArrayList Categories;
     private ArrayList Products;
     private ArrayList Packages;
-
+    private LekaEntities db;
+    
     private bool Connected;
     public MainWindow()
     {
@@ -38,6 +39,7 @@ namespace ProductManagement
       Categories = new ArrayList();
       Products = new ArrayList();
       Packages = new ArrayList();
+      db = new LekaEntities();
 
     }
 
@@ -53,13 +55,17 @@ namespace ProductManagement
     {
       if (!Connected)
       {
-        sbiStatus.Content = "Connected";
-        btnConnect.Content = "Disconnect";
-        tabCategory.Visibility = Visibility.Visible;
-        tabProduct.Visibility = Visibility.Visible;
-        tabPackage.Visibility = Visibility.Visible;
+        if (checkLogin(tbUser.Text, tbPassword.Password))
+        {
+          sbiStatus.Content = "Connected";
+          btnConnect.Content = "Disconnect";
+          tabCategory.Visibility = Visibility.Visible;
+          tabProduct.Visibility = Visibility.Visible;
+          tabPackage.Visibility = Visibility.Visible;
 
-        Connected = true;
+          Connected = true;
+          
+        }
       }
       
     }
@@ -111,6 +117,31 @@ namespace ProductManagement
 
       Packages.Add(package1);
 
+    }
+
+    private bool checkLogin(string user, string password)
+    {
+      try
+      {
+        var result = from u in db.users
+                     where u.password == password
+                     select u;
+        if (result.Count() > 0)
+        {
+          return true;
+        }
+        else
+        {
+          MessageBox.Show("Väärät tunnukset");
+          return false;
+        }
+      }
+      catch (Exception ex)
+      {
+        MessageBox.Show(ex.Message);
+        return false;
+      }
+        
     }
   }
 }
