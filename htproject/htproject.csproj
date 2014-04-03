@@ -75,6 +75,7 @@
       <DependentUpon>LekaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Category.cs" />
+    <Compile Include="EventsPackage.cs" />
     <Compile Include="kategoria.cs">
       <DependentUpon>LekaDB.tt</DependentUpon>
     </Compile>
