@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ProductManagement.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Product management" Height="378" Width="700" MinWidth="700" MinHeight="350">
+        Title="Product management" Height="378" Width="700" MinWidth="700" MinHeight="350" Icon="leka.ico">
     <Grid>
         <TabControl>
             <TabItem x:Name="tabLogin" Header="Login">
