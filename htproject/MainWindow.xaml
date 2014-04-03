@@ -10,7 +10,7 @@
                         <Label Content="User:" />
                         <TextBox x:Name="tbUser" Margin="10" />
                         <Label Content="Password" />
-                        <PasswordBox x:Name="tbPassword" Margin="10" />
+                        <PasswordBox x:Name="tbPassword" Margin="10" KeyUp="tbPassword_KeyUp" />
                         <Button x:Name="btnConnect" Content="Login" Click="btnConnect_Click" />
                     </StackPanel>
                 </StackPanel>
@@ -221,8 +221,14 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <StatusBar x:Name="sbStatus" Height="20" VerticalAlignment="Bottom">
-            <StatusBarItem x:Name="sbiStatus"/>
-        </StatusBar>
+        <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                <Button x:Name="btnSave" Content="Save" Margin="0,2.5,2.5,0" Width="75" Height="20"  />
+                <Button x:Name="btnCancel" Content="Cancel" Margin="0,2.5,2.5,0" Width="75" Height="20" />
+            </StackPanel>
+            <StatusBar x:Name="sbStatus" Height="20" DockPanel.Dock="Left">
+                <StatusBarItem x:Name="sbiStatus" />
+            </StatusBar>
+        </DockPanel>
     </Grid>
 </Window>

@@ -107,6 +107,11 @@ namespace ProductManagement
         
     }
 
+    private void tbPassword_KeyUp(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter) btnConnect_Click(sender, e);
+    }
+
 
   }
 }
