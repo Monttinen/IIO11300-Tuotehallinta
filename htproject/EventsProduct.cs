@@ -18,33 +18,30 @@ using JAMK.ICT;
 namespace ProductManagement
 {
   /// <summary>
-  /// Event handlerit pakettinäkymälle
+  /// Event handlerit tuotteille
   /// </summary>
   public partial class MainWindow : Window
   {
-    // lisää tänne paketti handlereita
-    private void btnPackageAdd_Click(object sender, RoutedEventArgs e)
-    {
-      MessageBox.Show("toimii");
-      
-    }
 
-    private void lbPackages_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    // lisää tuotteiden handlerit tänne
+
+
+    private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
     }
 
-    private void btnPackageRemove_Click(object sender, RoutedEventArgs e)
+    private void btnAddProduct_Click(object sender, RoutedEventArgs e)
     {
 
     }
 
-    private void btnPackageAddProduct_Click(object sender, RoutedEventArgs e)
+    private void btnRemoveProduct_Click(object sender, RoutedEventArgs e)
     {
 
     }
 
-    private void btnPackageRemoveProduct_Click(object sender, RoutedEventArgs e)
+    private void cbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
     }

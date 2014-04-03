@@ -17,9 +17,9 @@
             </TabItem>
             <TabItem x:Name="tabCategory" Header="Categories">
                 <Grid>
-                    <Button x:Name="btnRemoveCategory" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom"/>
-                    <Button x:Name="btnAddCategory" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom"/>
-                    <ListBox x:Name="lbCategories" HorizontalAlignment="Left" Width="175" Margin="0,0,0,81">
+                    <Button x:Name="btnRemoveCategory" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnRemoveCategory_Click"/>
+                    <Button x:Name="btnAddCategory" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnAddCategory_Click"/>
+                    <ListBox x:Name="lbCategories" HorizontalAlignment="Left" Width="175" Margin="0,0,0,81" SelectionChanged="lbCategories_SelectionChanged">
                         <ListBoxItem Content="kategoria1"/>
                         <ListBoxItem Content="kategoria2"/>
                         <ListBoxItem Content="kategoria"/>
@@ -76,9 +76,9 @@
             </TabItem>
             <TabItem x:Name="tabProduct" Header="Products" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
                 <Grid>
-                    <Button x:Name="btnRemoveProduct" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom"/>
-                    <Button x:Name="btnAddProduct" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom"/>
-                    <ListBox x:Name="lbProducts" HorizontalAlignment="Left" Width="175" Margin="0,0,0,81">
+                    <Button x:Name="btnRemoveProduct" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnRemoveProduct_Click"/>
+                    <Button x:Name="btnAddProduct" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnAddProduct_Click"/>
+                    <ListBox x:Name="lbProducts" HorizontalAlignment="Left" Width="175" Margin="0,0,0,81" SelectionChanged="lbProducts_SelectionChanged">
                         <ListBoxItem Content="tuote"/>
                         <ListBoxItem Content="ListBoxItem"/>
                         <ListBoxItem Content="ListBoxItem"/>
@@ -130,7 +130,7 @@
                     <TextBox x:Name="tbProductName" Height="23" MinWidth="100" Margin="249,41,244,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
                     <Label Content="Category" HorizontalAlignment="Left" Margin="443,11,0,0" VerticalAlignment="Top"/>
                     <Label Content="Product description" HorizontalAlignment="Left" Margin="180,132,0,0" VerticalAlignment="Top"/>
-                    <ComboBox x:Name="cbProductCategory" HorizontalAlignment="Left" Margin="443,42,0,0" VerticalAlignment="Top" Width="182" SelectedIndex="0">
+                    <ComboBox x:Name="cbProductCategory" HorizontalAlignment="Left" Margin="443,42,0,0" VerticalAlignment="Top" Width="182" SelectedIndex="0" SelectionChanged="cbProductCategory_SelectionChanged">
                         <ComboBoxItem Content="kategoria1"/>
                         <ComboBoxItem Content="kategoria2"/>
                         <ComboBoxItem Content="kategoria"/>
@@ -147,7 +147,7 @@
             </TabItem>
             <TabItem x:Name="tabPackage" Header="Package" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="lbPackages" HorizontalAlignment="Left" Margin="0,0,0,83" Width="173">
+                    <ListBox x:Name="lbPackages" HorizontalAlignment="Left" Margin="0,0,0,83" Width="173" SelectionChanged="lbPackages_SelectionChanged">
                         <ListBoxItem Content="Paketti1"/>
                         <ListBoxItem Content="Paketti2"/>
                         <ListBoxItem Content="Paketti3"/>
@@ -163,10 +163,10 @@
                         <ListBoxItem Content="Product3"/>
                         <ListBoxItem Content="Product4"/>
                     </ListBox>
-                    <Button x:Name="btnPackageRemove" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom"/>
+                    <Button x:Name="btnPackageRemove" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnPackageRemove_Click"/>
                     <Button x:Name="btnPackageAdd" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnPackageAdd_Click"/>
-                    <Button x:Name="btnPackageRemoveProduct" Content="Remove Product-&gt;" Margin="0,0,194,85" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="107"/>
-                    <Button x:Name="btnPackageAddProduct" Content="&lt;-Add Product" Margin="0,0,194,112" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="107"/>
+                    <Button x:Name="btnPackageRemoveProduct" Content="Remove Product-&gt;" Margin="0,0,194,85" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="107" Click="btnPackageRemoveProduct_Click"/>
+                    <Button x:Name="btnPackageAddProduct" Content="&lt;-Add Product" Margin="0,0,194,112" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="107" Click="btnPackageAddProduct_Click"/>
                     <TextBox x:Name="tbPackagePrice" Margin="0,0,194,55" TextWrapping="Wrap" Text="Price" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="156"/>
                     <Label Content="Package price" Margin="0,0,355,45" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="98"/>
                     <ListBox x:Name="lbPackageAvailableProducts" Margin="0,3,0,27" HorizontalAlignment="Right" Width="189">
@@ -223,8 +223,8 @@
         </TabControl>
         <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
             <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-                <Button x:Name="btnSave" Content="Save" Margin="0,2.5,2.5,0" Width="75" Height="20"  />
-                <Button x:Name="btnCancel" Content="Cancel" Margin="0,2.5,2.5,0" Width="75" Height="20" />
+                <Button x:Name="btnSave" Content="Save" Margin="0,2.5,2.5,0" Width="75" Height="20" Click="btnSave_Click"  />
+                <Button x:Name="btnCancel" Content="Cancel" Margin="0,2.5,2.5,0" Width="75" Height="20" Click="btnCancel_Click" />
             </StackPanel>
             <StatusBar x:Name="sbStatus" Height="20" DockPanel.Dock="Left">
                 <StatusBarItem x:Name="sbiStatus" />
