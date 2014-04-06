@@ -66,6 +66,8 @@ namespace ProductManagement
           tabPackage.Visibility = Visibility.Visible;
 
           Connected = true;
+          tbUser.IsEnabled = false;
+          tbPassword.IsEnabled = false;
 
           // load data to listboxes from database
           LoadListsFromDB();
@@ -89,6 +91,9 @@ namespace ProductManagement
       tabPackage.Visibility = Visibility.Collapsed;
 
       Connected = false;
+
+      tbUser.IsEnabled = true;
+      tbPassword.IsEnabled = true;
 
     }
 
@@ -124,7 +129,9 @@ namespace ProductManagement
 
     private void btnSave_Click(object sender, RoutedEventArgs e)
     {
+      // tallenna muutokset ja lataa listaukset uudelleen
       db.SaveChanges();
+      LoadCategoryListFromDB();
     }
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)

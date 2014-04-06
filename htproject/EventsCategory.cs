@@ -34,7 +34,7 @@ namespace ProductManagement
                    select c;
 
       lbCategories.ItemsSource = result.ToList();
-
+      lbCategories.Items.Refresh();
       lbCategories.DisplayMemberPath = "nimi";
       lbCategories.SelectedValuePath = "idkategoria";
 
@@ -46,7 +46,15 @@ namespace ProductManagement
     private void lbCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       selectedLBIndex = lbCategories.SelectedIndex;
-      if (selectedLBIndex == -1) return;
+      if (selectedLBIndex == -1)
+      {
+        tbCategoryName.Text = "";
+        tbCategoryDescription.Text = "";
+        tbCategoryName.IsEnabled = false;
+        tbCategoryDescription.IsEnabled = false;
+
+        return;
+      }
 
       selectedCategoryId = int.Parse(lbCategories.SelectedValue.ToString());
       
@@ -60,17 +68,34 @@ namespace ProductManagement
         sbiStatus.Content = string.Format("Valittu kategoria {0}", selectedCategory.nimi);
         tbCategoryName.Text = selectedCategory.nimi;
         tbCategoryDescription.Text = selectedCategory.kuvaus;
+        tbCategoryName.IsEnabled = true;
+        tbCategoryDescription.IsEnabled = true;
       }
     }
 
     private void btnAddCategory_Click(object sender, RoutedEventArgs e)
     {
+      kategoria k = new kategoria { nimi = "Name", kuvaus = "Description" };
+      db.kategoriat.Add(k);
+      db.SaveChanges();
+      LoadCategoryListFromDB();
 
     }
 
     private void btnRemoveCategory_Click(object sender, RoutedEventArgs e)
     {
+      var result = from c in db.kategoriat
+                   where c.idkategoria == selectedCategoryId
+                   select c;
+      
+      if (result.Count() > 0)
+      {
+        var k = result.First();
+        db.kategoriat.Remove(k);
 
+        db.SaveChanges();
+        LoadCategoryListFromDB();
+      }
     }
 
     private void tbCategoryName_LostFocus(object sender, RoutedEventArgs e)
@@ -79,8 +104,8 @@ namespace ProductManagement
       var result = (from c in db.kategoriat
                     where c.idkategoria == selectedCategoryId
                     select c).First().nimi = tbCategoryName.Text;
-      // päivitä listbox
-      LoadCategoryListFromDB();
+      
+      
     }
 
     private void tbCategoryDescription_LostFocus(object sender, RoutedEventArgs e)
@@ -89,8 +114,8 @@ namespace ProductManagement
       var result = (from c in db.kategoriat
                     where c.idkategoria == selectedCategoryId
                     select c).First().kuvaus = tbCategoryDescription.Text;
-      // päivitä listbox 
-      LoadCategoryListFromDB();
+      
+      
     }
   }
 }
