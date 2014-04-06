@@ -6,12 +6,9 @@
     <edmx:StorageModels>
       <Schema Namespace="LekaModel.Store" Alias="Self" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="LekaModelStoreContainer">
-          <EntitySet Name="asiakas" EntityType="LekaModel.Store.asiakas" store:Type="Tables" Schema="leka" />
           <EntitySet Name="kategoria" EntityType="LekaModel.Store.kategoria" store:Type="Tables" Schema="leka" />
           <EntitySet Name="paketti" EntityType="LekaModel.Store.paketti" store:Type="Tables" Schema="leka" />
           <EntitySet Name="paketti_has_tuote" EntityType="LekaModel.Store.paketti_has_tuote" store:Type="Tables" Schema="leka" />
-          <EntitySet Name="tilaus" EntityType="LekaModel.Store.tilaus" store:Type="Tables" Schema="leka" />
-          <EntitySet Name="tilaus_has_tuote" EntityType="LekaModel.Store.tilaus_has_tuote" store:Type="Tables" Schema="leka" />
           <EntitySet Name="tuote" EntityType="LekaModel.Store.tuote" store:Type="Tables" Schema="leka" />
           <EntitySet Name="tuote_has_kategoria" EntityType="LekaModel.Store.tuote_has_kategoria" store:Type="Tables" Schema="leka" />
           <EntitySet Name="user" EntityType="LekaModel.Store.user" store:Type="Tables" Schema="leka" />
@@ -23,18 +20,6 @@
             <End Role="tuote" EntitySet="tuote" />
             <End Role="paketti_has_tuote" EntitySet="paketti_has_tuote" />
           </AssociationSet>
-          <AssociationSet Name="fk_tilaus_asiakas1" Association="LekaModel.Store.fk_tilaus_asiakas1">
-            <End Role="asiakas" EntitySet="asiakas" />
-            <End Role="tilaus" EntitySet="tilaus" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tilaus_has_tuote_tilaus" Association="LekaModel.Store.fk_tilaus_has_tuote_tilaus">
-            <End Role="tilaus" EntitySet="tilaus" />
-            <End Role="tilaus_has_tuote" EntitySet="tilaus_has_tuote" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tilaus_has_tuote_tuote1" Association="LekaModel.Store.fk_tilaus_has_tuote_tuote1">
-            <End Role="tuote" EntitySet="tuote" />
-            <End Role="tilaus_has_tuote" EntitySet="tilaus_has_tuote" />
-          </AssociationSet>
           <AssociationSet Name="fk_tuote_has_kategoria_kategoria1" Association="LekaModel.Store.fk_tuote_has_kategoria_kategoria1">
             <End Role="kategoria" EntitySet="kategoria" />
             <End Role="tuote_has_kategoria" EntitySet="tuote_has_kategoria" />
@@ -44,15 +29,6 @@
             <End Role="tuote_has_kategoria" EntitySet="tuote_has_kategoria" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="asiakas">
-          <Key>
-            <PropertyRef Name="idasiakas" />
-          </Key>
-          <Property Name="idasiakas" Type="int" Nullable="false" />
-          <Property Name="nimi" Type="varchar" MaxLength="45" />
-          <Property Name="osoite" Type="varchar" />
-          <Property Name="asiakascol" Type="varchar" MaxLength="45" />
-        </EntityType>
         <EntityType Name="kategoria">
           <Key>
             <PropertyRef Name="idkategoria" />
@@ -77,23 +53,6 @@
           </Key>
           <Property Name="paketti_pakettiID" Type="int" Nullable="false" />
           <Property Name="tuote_idtuote" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tilaus">
-          <Key>
-            <PropertyRef Name="idtilaus" />
-          </Key>
-          <Property Name="idtilaus" Type="int" Nullable="false" />
-          <Property Name="asiakas_idasiakas" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tilaus_has_tuote">
-          <Key>
-            <PropertyRef Name="tilaus_idtilaus" />
-            <PropertyRef Name="tuote_idtuote" />
-          </Key>
-          <Property Name="tilaus_idtilaus" Type="int" Nullable="false" />
-          <Property Name="tuote_idtuote" Type="int" Nullable="false" />
-          <Property Name="tuotehinta" Type="decimal" Scale="2" />
-          <Property Name="tuotelkm" Type="int" />
         </EntityType>
         <EntityType Name="tuote">
           <Key>
@@ -145,42 +104,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_tilaus_asiakas1">
-          <End Role="asiakas" Type="LekaModel.Store.asiakas" Multiplicity="1" />
-          <End Role="tilaus" Type="LekaModel.Store.tilaus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="asiakas">
-              <PropertyRef Name="idasiakas" />
-            </Principal>
-            <Dependent Role="tilaus">
-              <PropertyRef Name="asiakas_idasiakas" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tilaus_has_tuote_tilaus">
-          <End Role="tilaus" Type="LekaModel.Store.tilaus" Multiplicity="1" />
-          <End Role="tilaus_has_tuote" Type="LekaModel.Store.tilaus_has_tuote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tilaus">
-              <PropertyRef Name="idtilaus" />
-            </Principal>
-            <Dependent Role="tilaus_has_tuote">
-              <PropertyRef Name="tilaus_idtilaus" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tilaus_has_tuote_tuote1">
-          <End Role="tuote" Type="LekaModel.Store.tuote" Multiplicity="1" />
-          <End Role="tilaus_has_tuote" Type="LekaModel.Store.tilaus_has_tuote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tuote">
-              <PropertyRef Name="idtuote" />
-            </Principal>
-            <Dependent Role="tilaus_has_tuote">
-              <PropertyRef Name="tuote_idtuote" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_tuote_has_kategoria_kategoria1">
           <End Role="kategoria" Type="LekaModel.Store.kategoria" Multiplicity="1" />
           <End Role="tuote_has_kategoria" Type="LekaModel.Store.tuote_has_kategoria" Multiplicity="*" />
@@ -211,25 +134,10 @@
     <edmx:ConceptualModels>
       <Schema Namespace="LekaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="LekaEntities" p1:LazyLoadingEnabled="true">
-          <EntitySet Name="asiakkaat" EntityType="LekaModel.asiakas" />
           <EntitySet Name="kategoriat" EntityType="LekaModel.kategoria" />
           <EntitySet Name="paketit" EntityType="LekaModel.paketti" />
-          <EntitySet Name="tilaukset" EntityType="LekaModel.tilaus" />
-          <EntitySet Name="tilaus_tuotteet" EntityType="LekaModel.tilaus_tuote" />
           <EntitySet Name="tuotteet" EntityType="LekaModel.tuote" />
           <EntitySet Name="users" EntityType="LekaModel.user" />
-          <AssociationSet Name="fk_tilaus_asiakas1" Association="LekaModel.fk_tilaus_asiakas1">
-            <End Role="asiakas" EntitySet="asiakkaat" />
-            <End Role="tilaus" EntitySet="tilaukset" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tilaus_has_tuote_tilaus" Association="LekaModel.fk_tilaus_has_tuote_tilaus">
-            <End Role="tilaus" EntitySet="tilaukset" />
-            <End Role="tilaus_has_tuote" EntitySet="tilaus_tuotteet" />
-          </AssociationSet>
-          <AssociationSet Name="fk_tilaus_has_tuote_tuote1" Association="LekaModel.fk_tilaus_has_tuote_tuote1">
-            <End Role="tuote" EntitySet="tuotteet" />
-            <End Role="tilaus_has_tuote" EntitySet="tilaus_tuotteet" />
-          </AssociationSet>
           <AssociationSet Name="paketti_has_tuote" Association="LekaModel.paketti_has_tuote">
             <End Role="paketti" EntitySet="paketit" />
             <End Role="tuote" EntitySet="tuotteet" />
@@ -239,16 +147,6 @@
             <End Role="tuote" EntitySet="tuotteet" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="asiakas">
-          <Key>
-            <PropertyRef Name="idasiakas" />
-          </Key>
-          <Property Name="idasiakas" Type="Int32" Nullable="false" />
-          <Property Name="nimi" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="osoite" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
-          <Property Name="asiakascol" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
-          <NavigationProperty Name="tilaus" Relationship="LekaModel.fk_tilaus_asiakas1" FromRole="asiakas" ToRole="tilaus" />
-        </EntityType>
         <EntityType Name="kategoria">
           <Key>
             <PropertyRef Name="idkategoria" />
@@ -268,27 +166,6 @@
           <Property Name="pakettiID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tuote" Relationship="LekaModel.paketti_has_tuote" FromRole="paketti" ToRole="tuote" />
         </EntityType>
-        <EntityType Name="tilaus">
-          <Key>
-            <PropertyRef Name="idtilaus" />
-          </Key>
-          <Property Name="idtilaus" Type="Int32" Nullable="false" />
-          <Property Name="asiakas_idasiakas" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="asiakas" Relationship="LekaModel.fk_tilaus_asiakas1" FromRole="tilaus" ToRole="asiakas" />
-          <NavigationProperty Name="tilaus_has_tuote" Relationship="LekaModel.fk_tilaus_has_tuote_tilaus" FromRole="tilaus" ToRole="tilaus_has_tuote" />
-        </EntityType>
-        <EntityType Name="tilaus_tuote">
-          <Key>
-            <PropertyRef Name="tilaus_idtilaus" />
-            <PropertyRef Name="tuote_idtuote" />
-          </Key>
-          <Property Name="tilaus_idtilaus" Type="Int32" Nullable="false" />
-          <Property Name="tuote_idtuote" Type="Int32" Nullable="false" />
-          <Property Name="tuotehinta" Type="Decimal" />
-          <Property Name="tuotelkm" Type="Int32" />
-          <NavigationProperty Name="tilaus" Relationship="LekaModel.fk_tilaus_has_tuote_tilaus" FromRole="tilaus_has_tuote" ToRole="tilaus" />
-          <NavigationProperty Name="tuote" Relationship="LekaModel.fk_tilaus_has_tuote_tuote1" FromRole="tilaus_has_tuote" ToRole="tuote" />
-        </EntityType>
         <EntityType Name="tuote">
           <Key>
             <PropertyRef Name="idtuote" />
@@ -297,7 +174,6 @@
           <Property Name="tuotenimi" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="kuvaus" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
           <Property Name="hinta" Type="Double" />
-          <NavigationProperty Name="tilaus_has_tuote" Relationship="LekaModel.fk_tilaus_has_tuote_tuote1" FromRole="tuote" ToRole="tilaus_has_tuote" />
           <NavigationProperty Name="paketti" Relationship="LekaModel.paketti_has_tuote" FromRole="tuote" ToRole="paketti" />
           <NavigationProperty Name="kategoria" Relationship="LekaModel.tuote_has_kategoria" FromRole="tuote" ToRole="kategoria" />
         </EntityType>
@@ -310,42 +186,6 @@
           <Property Name="password" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="usertype" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
         </EntityType>
-        <Association Name="fk_tilaus_asiakas1">
-          <End Role="asiakas" Type="LekaModel.asiakas" Multiplicity="1" />
-          <End Role="tilaus" Type="LekaModel.tilaus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="asiakas">
-              <PropertyRef Name="idasiakas" />
-            </Principal>
-            <Dependent Role="tilaus">
-              <PropertyRef Name="asiakas_idasiakas" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tilaus_has_tuote_tilaus">
-          <End Role="tilaus" Type="LekaModel.tilaus" Multiplicity="1" />
-          <End Role="tilaus_has_tuote" Type="LekaModel.tilaus_tuote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tilaus">
-              <PropertyRef Name="idtilaus" />
-            </Principal>
-            <Dependent Role="tilaus_has_tuote">
-              <PropertyRef Name="tilaus_idtilaus" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_tilaus_has_tuote_tuote1">
-          <End Role="tuote" Type="LekaModel.tuote" Multiplicity="1" />
-          <End Role="tilaus_has_tuote" Type="LekaModel.tilaus_tuote" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tuote">
-              <PropertyRef Name="idtuote" />
-            </Principal>
-            <Dependent Role="tilaus_has_tuote">
-              <PropertyRef Name="tuote_idtuote" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="paketti_has_tuote">
           <End Role="paketti" Type="LekaModel.paketti" Multiplicity="*" />
           <End Role="tuote" Type="LekaModel.tuote" Multiplicity="*" />
@@ -360,16 +200,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LekaModelStoreContainer" CdmEntityContainer="LekaEntities">
-          <EntitySetMapping Name="asiakkaat">
-            <EntityTypeMapping TypeName="LekaModel.asiakas">
-              <MappingFragment StoreEntitySet="asiakas">
-                <ScalarProperty Name="idasiakas" ColumnName="idasiakas" />
-                <ScalarProperty Name="nimi" ColumnName="nimi" />
-                <ScalarProperty Name="osoite" ColumnName="osoite" />
-                <ScalarProperty Name="asiakascol" ColumnName="asiakascol" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="kategoriat">
             <EntityTypeMapping TypeName="LekaModel.kategoria">
               <MappingFragment StoreEntitySet="kategoria">
@@ -386,24 +216,6 @@
                 <ScalarProperty Name="paketinHinta" ColumnName="paketinHinta" />
                 <ScalarProperty Name="nimi" ColumnName="nimi" />
                 <ScalarProperty Name="pakettiID" ColumnName="pakettiID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tilaukset">
-            <EntityTypeMapping TypeName="LekaModel.tilaus">
-              <MappingFragment StoreEntitySet="tilaus">
-                <ScalarProperty Name="idtilaus" ColumnName="idtilaus" />
-                <ScalarProperty Name="asiakas_idasiakas" ColumnName="asiakas_idasiakas" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tilaus_tuotteet">
-            <EntityTypeMapping TypeName="LekaModel.tilaus_tuote">
-              <MappingFragment StoreEntitySet="tilaus_has_tuote">
-                <ScalarProperty Name="tilaus_idtilaus" ColumnName="tilaus_idtilaus" />
-                <ScalarProperty Name="tuote_idtuote" ColumnName="tuote_idtuote" />
-                <ScalarProperty Name="tuotehinta" ColumnName="tuotehinta" />
-                <ScalarProperty Name="tuotelkm" ColumnName="tuotelkm" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

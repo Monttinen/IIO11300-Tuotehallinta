@@ -25,11 +25,8 @@ namespace JAMK.ICT
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<asiakas> asiakkaat { get; set; }
         public DbSet<kategoria> kategoriat { get; set; }
         public DbSet<paketti> paketit { get; set; }
-        public DbSet<tilaus> tilaukset { get; set; }
-        public DbSet<tilaus_tuote> tilaus_tuotteet { get; set; }
         public DbSet<tuote> tuotteet { get; set; }
         public DbSet<user> users { get; set; }
     }

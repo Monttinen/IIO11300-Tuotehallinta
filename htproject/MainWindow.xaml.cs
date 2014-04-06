@@ -27,7 +27,7 @@ namespace ProductManagement
     private ArrayList Products;
     private ArrayList Packages;
     private LekaEntities db;
-    
+
     private bool Connected;
     public MainWindow()
     {
@@ -35,6 +35,8 @@ namespace ProductManagement
       tabCategory.Visibility = Visibility.Collapsed;
       tabProduct.Visibility = Visibility.Collapsed;
       tabPackage.Visibility = Visibility.Collapsed;
+
+      tbUser.Focus();
 
       Categories = new ArrayList();
       Products = new ArrayList();
@@ -64,22 +66,30 @@ namespace ProductManagement
           tabPackage.Visibility = Visibility.Visible;
 
           Connected = true;
-          
+
+          // load data to listboxes from database
+          LoadListsFromDB();
         }
       }
+
+    }
+
+    private void LoadListsFromDB()
+    {
+      LoadCategoryListFromDB();
       
     }
 
     private void Disconnect()
     {
-        sbiStatus.Content = "";
-        btnConnect.Content = "Login";
-        tabCategory.Visibility = Visibility.Collapsed;
-        tabProduct.Visibility = Visibility.Collapsed;
-        tabPackage.Visibility = Visibility.Collapsed;
+      sbiStatus.Content = "";
+      btnConnect.Content = "Login";
+      tabCategory.Visibility = Visibility.Collapsed;
+      tabProduct.Visibility = Visibility.Collapsed;
+      tabPackage.Visibility = Visibility.Collapsed;
 
-        Connected = false;
-      
+      Connected = false;
+
     }
 
     private bool checkLogin(string user, string password)
@@ -104,22 +114,24 @@ namespace ProductManagement
         MessageBox.Show(ex.Message);
         return false;
       }
-        
+
     }
 
     private void tbPassword_KeyUp(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.Enter) btnConnect_Click(sender, e);
+      if (e.Key == Key.Enter) btnConnect_Click(sender, e);
     }
 
     private void btnSave_Click(object sender, RoutedEventArgs e)
     {
-
+      db.SaveChanges();
     }
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
-
+      // TODO: hae kaikki uusiksi databasesta
+      db = null;
+      db = new LekaEntities(); // ?? hakeeko uusiksi?
     }
 
 

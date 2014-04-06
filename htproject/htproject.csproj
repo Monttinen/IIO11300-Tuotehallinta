@@ -71,9 +71,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="asiakas.cs">
-      <DependentUpon>LekaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Category.cs" />
     <Compile Include="EventsCategory.cs" />
     <Compile Include="EventsPackage.cs" />
@@ -101,12 +98,6 @@
       <DependentUpon>LekaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs" />
-    <Compile Include="tilaus.cs">
-      <DependentUpon>LekaDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tilaus_tuote.cs">
-      <DependentUpon>LekaDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="tuote.cs">
       <DependentUpon>LekaDB.tt</DependentUpon>
     </Compile>

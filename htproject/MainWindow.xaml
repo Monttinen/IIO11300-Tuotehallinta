@@ -19,56 +19,9 @@
                 <Grid>
                     <Button x:Name="btnRemoveCategory" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnRemoveCategory_Click"/>
                     <Button x:Name="btnAddCategory" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnAddCategory_Click"/>
-                    <ListBox x:Name="lbCategories" HorizontalAlignment="Left" Width="175" Margin="0,0,0,81" SelectionChanged="lbCategories_SelectionChanged">
-                        <ListBoxItem Content="kategoria1"/>
-                        <ListBoxItem Content="kategoria2"/>
-                        <ListBoxItem Content="kategoria"/>
-                        <ListBoxItem Content="kategoria4"/>
-                        <ListBoxItem Content="kategoriaq"/>
-                        <ListBoxItem Content="kategoria3"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="kategoria42"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="kategoria22"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="kategoria33"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="77"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="kategoria64"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                    </ListBox>
-                    <TextBox x:Name="tbCategoryDescription" Margin="180,112,10,81" TextWrapping="Wrap" Text="Description" AcceptsReturn="True"/>
-                    <TextBox x:Name="tbCategoryName" Height="23" MinWidth="100" Margin="180,41,244,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top"/>
+                    <ListBox x:Name="lbCategories" HorizontalAlignment="Left" Width="175" Margin="0,0,0,81" SelectionChanged="lbCategories_SelectionChanged" ItemsSource="{Binding}"/>
+                    <TextBox x:Name="tbCategoryDescription" Margin="180,112,10,81" TextWrapping="Wrap" Text="Description" AcceptsReturn="True" LostFocus="tbCategoryDescription_LostFocus"/>
+                    <TextBox x:Name="tbCategoryName" Height="23" MinWidth="100" Margin="180,41,244,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" LostFocus="tbCategoryName_LostFocus"/>
                     <Label Content="Category name" HorizontalAlignment="Left" Margin="180,10,0,0" VerticalAlignment="Top"/>
                     <Label Content="Category description" HorizontalAlignment="Left" Margin="180,81,0,0" VerticalAlignment="Top"/>
 

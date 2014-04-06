@@ -16,7 +16,6 @@ namespace JAMK.ICT
     {
         public tuote()
         {
-            this.tilaus_has_tuote = new HashSet<tilaus_tuote>();
             this.paketti = new HashSet<paketti>();
             this.kategoria = new HashSet<kategoria>();
         }
@@ -26,7 +25,6 @@ namespace JAMK.ICT
         public string kuvaus { get; set; }
         public Nullable<double> hinta { get; set; }
     
-        public virtual ICollection<tilaus_tuote> tilaus_has_tuote { get; set; }
         public virtual ICollection<paketti> paketti { get; set; }
         public virtual ICollection<kategoria> kategoria { get; set; }
     }
