@@ -79,7 +79,7 @@ namespace ProductManagement
     private void LoadListsFromDB()
     {
       LoadCategoryListFromDB();
-      
+      LoadProductListFromDB();
     }
 
     private void Disconnect()
@@ -132,6 +132,7 @@ namespace ProductManagement
       // tallenna muutokset ja lataa listaukset uudelleen
       db.SaveChanges();
       LoadCategoryListFromDB();
+      LoadProductListFromDB();
     }
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)

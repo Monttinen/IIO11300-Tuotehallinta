@@ -23,7 +23,7 @@ namespace ProductManagement
   public partial class MainWindow : Window
   {
     private int selectedCategoryId = -1;
-    private int selectedLBIndex = -1;
+    private int selectedLBIndexCategory = -1;
 
     private void LoadCategoryListFromDB()
     {
@@ -45,8 +45,8 @@ namespace ProductManagement
 
     private void lbCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      selectedLBIndex = lbCategories.SelectedIndex;
-      if (selectedLBIndex == -1)
+      selectedLBIndexCategory = lbCategories.SelectedIndex;
+      if (selectedLBIndexCategory == -1)
       {
         tbCategoryName.Text = "";
         tbCategoryDescription.Text = "";
