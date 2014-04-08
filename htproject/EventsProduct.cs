@@ -24,6 +24,8 @@ namespace ProductManagement
   {
     private int selectedProductId = -1;
     private int selectedProductCategoryId = -1;
+    private tuote selectedProduct;
+    private kategoria selectedProductCategory;
 
     private void LoadProductListFromDB()
     {
@@ -34,17 +36,19 @@ namespace ProductManagement
                    select p;
 
       lbProducts.ItemsSource = result.ToList();
-      lbProducts.Items.Refresh();
       lbProducts.DisplayMemberPath = "tuotenimi";
       lbProducts.SelectedValuePath = "idtuote";
+      lbProducts.Items.Refresh();
 
       // sidotaan tässä myös kategoriat comboboxiin
       cbProductCategory.ItemsSource = null;
       var result2 = from c in db.kategoriat
                     orderby c.nimi
-                    select c.nimi;
+                    select new { c.idkategoria, c.nimi };
       
       cbProductCategory.ItemsSource = result2.ToList();
+      cbProductCategory.DisplayMemberPath = "nimi";
+      cbProductCategory.SelectedValuePath = "idkategoria";
       cbProductCategory.Items.Refresh();
     }
 
@@ -89,7 +93,13 @@ namespace ProductManagement
         tbProductOther.IsEnabled = false;
         tbProductPrice.IsEnabled = true;
         cbProductCategory.IsEnabled = true;
+
+        // TODO: valitse kategoria cb:stä
+        selectedProductCategoryId = selectedProduct.kategoria.First().idkategoria;
+        cbProductCategory.SelectedValue = selectedProductCategoryId;
+        
       }
+
     }
 
     private void btnAddProduct_Click(object sender, RoutedEventArgs e)
@@ -104,18 +114,32 @@ namespace ProductManagement
 
     private void cbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      // bugaa
-      /*selectedProductCategoryId = int.Parse(cbProductCategory.SelectedValue.ToString());
-      var category = from c in db.kategoriat
-                     where c.idkategoria == selectedProductCategoryId
-                     select c;
+      
+    }
+
+
+
+    private void cbProductCategory_DropDownClosed(object sender, EventArgs e)
+    {
+      if (selectedProductId < 0) return;
+
+      selectedProductCategoryId = (int)cbProductCategory.SelectedValue;
+
+      if (selectedProductCategoryId < 0) return;
 
       var product = (from p in db.tuotteet
-                    where p.idtuote == selectedProductId
-                    select p).First();
+                     where p.idtuote == selectedProductId
+                     select p).First();
 
-      if(product.kategoria.Count < 1) // käytetään vain yhtä kategoriaa vaikka db sallisikin monta
-        product.kategoria.Add((kategoria)category);*/
+      if (product.kategoria.First().idkategoria != selectedProductCategoryId)
+      {
+        var category = from c in db.kategoriat
+                       where c.idkategoria == selectedProductCategoryId
+                       select c;
+        // käytetään vain yhtä kategoriaa vaikka db sallisikin monta
+        product.kategoria.Clear();
+        product.kategoria.Add(category.First());
+      }
     }
   }
 }
