@@ -32,16 +32,14 @@
                     <Button x:Name="btnRemoveProduct" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnRemoveProduct_Click"/>
                     <Button x:Name="btnAddProduct" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnAddProduct_Click"/>
                     <ListBox x:Name="lbProducts" HorizontalAlignment="Left" Width="175" Margin="0,0,0,81" SelectionChanged="lbProducts_SelectionChanged"/>
-                    <TextBox x:Name="tbProductDescription" Margin="180,163,10,81" TextWrapping="Wrap" IsEnabled="False" AcceptsReturn="True"/>
-                    <TextBox x:Name="tbProductName" Height="23" MinWidth="100" Margin="249,41,244,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top"/>
+                    <TextBox x:Name="tbProductDescription" Margin="180,163,10,81" TextWrapping="Wrap" IsEnabled="False" AcceptsReturn="True" LostFocus="tbProductDescription_LostFocus"/>
+                    <TextBox x:Name="tbProductName" Height="23" MinWidth="100" Margin="249,41,244,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top" LostFocus="tbProductName_LostFocus"/>
                     <Label Content="Category" HorizontalAlignment="Left" Margin="443,11,0,0" VerticalAlignment="Top"/>
                     <Label Content="Product description" HorizontalAlignment="Left" Margin="180,132,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="cbProductCategory" HorizontalAlignment="Left" Margin="443,42,0,0" IsEnabled="False" VerticalAlignment="Top" Width="182" SelectedIndex="0" SelectionChanged="cbProductCategory_SelectionChanged" DropDownClosed="cbProductCategory_DropDownClosed"/>
                     <Label Content="Name" HorizontalAlignment="Left" Margin="180,41,0,0" VerticalAlignment="Top" Width="64" Height="23"/>
-                    <TextBox x:Name="tbProductPrice" Height="23" MinWidth="100" Margin="249,69,244,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top"/>
+                    <TextBox x:Name="tbProductPrice" Height="23" MinWidth="100" Margin="249,69,244,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top" LostFocus="tbProductPrice_LostFocus"/>
                     <Label Content="Price:" HorizontalAlignment="Left" Margin="180,69,0,0" VerticalAlignment="Top" Width="64" Height="23"/>
-                    <TextBox x:Name="tbProductOther" Height="23" MinWidth="100" Margin="249,97,244,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top"/>
-                    <Label Content="Other data:" HorizontalAlignment="Left" Margin="180,97,0,0" VerticalAlignment="Top" Width="64" Height="23"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabPackage" Header="Package" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">

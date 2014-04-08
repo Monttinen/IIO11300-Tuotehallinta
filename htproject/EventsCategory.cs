@@ -75,10 +75,13 @@ namespace ProductManagement
 
     private void btnAddCategory_Click(object sender, RoutedEventArgs e)
     {
-      kategoria k = new kategoria { nimi = "Name", kuvaus = "Description" };
+      kategoria k = new kategoria { nimi = "<uusi kategoria>", kuvaus = "kategorian kuvaus" };
       db.kategoriat.Add(k);
+      sbiStatus.Content = "Lisätty uusi kategoria";
       db.SaveChanges();
       LoadCategoryListFromDB();
+
+      // TODO: tässä kohtaa voitaisiin valita lisätty valmiiksi
 
     }
 
@@ -93,6 +96,7 @@ namespace ProductManagement
         var k = result.First();
         db.kategoriat.Remove(k);
 
+        sbiStatus.Content = string.Format("Poistettiin kategoria {0}", k.nimi);
         db.SaveChanges();
         LoadCategoryListFromDB();
       }
