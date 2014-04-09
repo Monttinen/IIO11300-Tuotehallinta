@@ -38,8 +38,13 @@ namespace ProductManagement
       lbPackages.SelectedValuePath = "pakettiID";
       lbPackages.Items.Refresh();
 
-
+      lbPackageAvailableProducts.ItemsSource = lbProducts.ItemsSource; // hähä :P
+      lbPackageAvailableProducts.DisplayMemberPath = "tuotenimi";
+      lbPackageAvailableProducts.SelectedValuePath = "idtuote";
+      lbPackageAvailableProducts.Items.Refresh();
     }
+
+
 
     // lisää tänne paketti handlereita
     private void btnPackageAdd_Click(object sender, RoutedEventArgs e)
@@ -52,7 +57,7 @@ namespace ProductManagement
 
       selectPackageID(p.pakettiID);
       showPackageDetails();
-      
+
     }
 
     private void lbPackages_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -84,12 +89,31 @@ namespace ProductManagement
 
     private void btnPackageAddProduct_Click(object sender, RoutedEventArgs e)
     {
+      var tuote = from p in db.tuotteet
+                  where p.idtuote == (int)lbPackageAvailableProducts.SelectedValue
+                  select p;
+
+      (from p in db.paketit
+                  where p.pakettiID == selectedPackageId
+                  select p).First().tuote.Add(tuote.First());
+
+      db.SaveChanges();
+      showPackageDetails();
 
     }
 
     private void btnPackageRemoveProduct_Click(object sender, RoutedEventArgs e)
     {
+      var tuote = from p in db.tuotteet
+                  where p.idtuote == (int)lbPackageProducts.SelectedValue
+                  select p;
 
+      (from p in db.paketit
+       where p.pakettiID == selectedPackageId
+       select p).First().tuote.Remove(tuote.First());
+
+      db.SaveChanges();
+      showPackageDetails();
     }
 
     private void tbPackageName_LostFocus(object sender, RoutedEventArgs e)
@@ -98,7 +122,7 @@ namespace ProductManagement
       var result = (from p in db.paketit
                     where p.pakettiID == selectedPackageId
                     select p).First().nimi = tbPackageName.Text;
-      
+
     }
 
     private void tbPackageRoomID_LostFocus(object sender, RoutedEventArgs e)
