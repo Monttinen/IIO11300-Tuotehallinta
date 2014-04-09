@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -134,13 +135,39 @@ namespace ProductManagement
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
-      // TODO: hae kaikki uusiksi databasesta
+      // hae kaikki uusiksi databasesta
       db = null;
       db = new LekaEntities(); // ?? hakeeko uusiksi?
     }
 
+    /// <summary>
+    /// Preview handleri int kentille
+    /// </summary>
+    private void IntValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+      try
+      {
+        int.Parse(e.Text);
+      }
+      catch (Exception)
+      {
+        e.Handled = true;
+      }
+    }
 
-
-
+    /// <summary>
+    /// Preview handleri numero kentille
+    /// </summary>
+    private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+    {
+      try
+      {
+        double.Parse(e.Text);
+      }
+      catch (Exception)
+      {
+        e.Handled = true;
+      }
+    }
   }
 }

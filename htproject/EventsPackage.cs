@@ -25,6 +25,9 @@ namespace ProductManagement
     private int selectedPackageId = -1;
     private int selectedPackageIndex = -1;
 
+    /// <summary>
+    /// Hakee pakettilistan tietokannasta ja asettaa myös paketteihin liitettävien tuotteiden listan
+    /// </summary>
     private void LoadPackageListFromDB()
     {
       lbPackages.ItemsSource = null;
@@ -45,8 +48,9 @@ namespace ProductManagement
     }
 
 
-
-    // lisää tänne paketti handlereita
+    /// <summary>
+    /// Lisää paketin ja tallentaa sen tietokantaan. Lisäksi valitsee listasta.
+    /// </summary>
     private void btnPackageAdd_Click(object sender, RoutedEventArgs e)
     {
       paketti p = new paketti { nimi = "<uusi paketti>", paketinHinta = 0.0, huoneID = 0, pakettiKuvaus = "paketin kuvaus" };
@@ -60,13 +64,18 @@ namespace ProductManagement
 
     }
 
+    /// <summary>
+    /// Listasta valittu paketti
+    /// </summary>
     private void lbPackages_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       updateSelectedPackage();
       showPackageDetails();
     }
 
-
+    /// <summary>
+    /// Poistaa paketin tietokannasta.
+    /// </summary>
     private void btnPackageRemove_Click(object sender, RoutedEventArgs e)
     {
       int tmp = selectedPackageIndex;
@@ -87,6 +96,9 @@ namespace ProductManagement
       }
     }
 
+    /// <summary>
+    /// Lisää valitun tuotteen pakettiin.
+    /// </summary>
     private void btnPackageAddProduct_Click(object sender, RoutedEventArgs e)
     {
       var tuote = from p in db.tuotteet
@@ -102,6 +114,9 @@ namespace ProductManagement
 
     }
 
+    /// <summary>
+    /// Poistaa valitun tuotteen paketista.
+    /// </summary>
     private void btnPackageRemoveProduct_Click(object sender, RoutedEventArgs e)
     {
       var tuote = from p in db.tuotteet
@@ -116,6 +131,10 @@ namespace ProductManagement
       showPackageDetails();
     }
 
+    /// <summary>
+    /// Tallennetaan nimen kun focus poistuu.
+    /// Tallentaa entiteettikokoelmaan, ei tietokantaan
+    /// </summary>
     private void tbPackageName_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbPackageName.Text == "") return;
@@ -125,17 +144,27 @@ namespace ProductManagement
 
     }
 
+    /// <summary>
+    /// Tallennetaan huoneen tiedot heti kun focus poistuu.
+    /// Tallentaa entiteettikokoelmaan, ei tietokantaan
+    /// </summary>
     private void tbPackageRoomID_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbPackageRoomID.Text == "") return;
+      tbPackageRoomID.Text = tbPackageRoomID.Text.Replace(" ", string.Empty);
       var result = (from p in db.paketit
                     where p.pakettiID == selectedPackageId
                     select p).First().huoneID = int.Parse(tbPackageRoomID.Text);
     }
 
+    /// <summary>
+    /// Tallennetaan paketin hinnan heti kun focus poistuu.
+    /// Tallentaa entiteettikokoelmaan, ei tietokantaan
+    /// </summary>
     private void tbPackagePrice_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbPackagePrice.Text == "") return;
+      tbPackagePrice.Text = tbPackagePrice.Text.Replace(" ", string.Empty);
       var result = (from p in db.paketit
                     where p.pakettiID == selectedPackageId
                     select p).First().paketinHinta = double.Parse(tbPackagePrice.Text);
@@ -244,5 +273,6 @@ namespace ProductManagement
       lbPackageProducts.SelectedValuePath = "idtuote";
       lbPackageProducts.Items.Refresh();
     }
+
   }
 }

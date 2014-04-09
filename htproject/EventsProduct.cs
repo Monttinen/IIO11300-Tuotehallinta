@@ -219,29 +219,6 @@ namespace ProductManagement
 
     }
 
-
-    /// <summary>
-    /// Estetään, että hintaan ei pääse syöttämään muutakuin numeroita ja pilkun
-    /// </summary>
-    private void tbProductPrice_KeyUp(object sender, KeyEventArgs e)
-    {
-      string price = tbProductPrice.Text;
-      price = deleteLetters(price);
-      tbProductPrice.Text = price;
-    }
-
-
-    /// <summary>
-    /// Poistaa kaikki muut merkit paitsi numerot 0-9 ja desimaalierottimen (pilkku = ',')
-    /// </summary>
-    /// <param name="text">Teksti josta poistetaan</param>
-    /// <returns>"Siivottu" merkkijono, jossa jäljellä kaikki numerot ja pilkut alkuperäisestä</returns>
-    private string deleteLetters(string text)
-    {
-      return new string(text.Where(c => char.IsDigit(c) || c==',').ToArray());
-    }
-
-
     private void cbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       // ei käytetä tätä vaan DropDownClosed
@@ -295,6 +272,7 @@ namespace ProductManagement
     private void tbProductPrice_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbProductPrice.Text == "") return;
+      tbProductPrice.Text = tbProductPrice.Text.Replace(" ", string.Empty);
       double price;
       if (!double.TryParse(tbProductPrice.Text, out price))
       {
