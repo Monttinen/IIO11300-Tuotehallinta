@@ -22,13 +22,14 @@ namespace ProductManagement
   /// </summary>
   public partial class MainWindow : Window
   {
-    private int selectedProductId = -1;
-    private int selectedProductIndex = -1;
-    private int selectedProductCategoryId = -1;
+    private int selectedProductId = -1;          // Muokataan VAIN updateSelectedProducts() funktiossa!
+    private int selectedProductIndex = -1;       // Muokataan VAIN updateSelectedProducts() funktiossa!
+    private int selectedProductCategoryId = -1; 
 
    
     /// <summary>
-    /// Valitsee tuotteen id:n perusteella
+    /// Valitsee tuotteen listassa valituksi id:n perusteella.
+    /// Lisäksi Laittaa tuotteen tiedot näyttöön
     /// </summary>
     /// <param name="id">Tuotteen id</param>
     private void selectProductId(int id)
@@ -44,7 +45,8 @@ namespace ProductManagement
 
 
     /// <summary>
-    /// Valitsee tuotteen indeksin perusteella
+    /// Valitsee tuotteen listassa valitussa listboxin indeksin perusteella.
+    /// Lisäksi laittaa tuotteen tiedot näyttöön
     /// </summary>
     /// <param name="index">Listboxin indeksi</param>
     private void selectProductIndex(int index)
@@ -107,8 +109,6 @@ namespace ProductManagement
       cbProductCategory.Items.Refresh();
     }
 
-
-    // lisää tuotteiden handlerit tänne
 
     /// <summary>
     /// Piirtää tekstikenttiin valitun tuotteen tiedot

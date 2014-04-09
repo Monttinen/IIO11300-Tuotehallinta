@@ -22,9 +22,13 @@ namespace ProductManagement
   /// </summary>
   public partial class MainWindow : Window
   {
-    private int selectedCategoryId = -1;
-    private int selectedCategoryIndex = -1;
+    private int selectedCategoryId = -1;     // Muokataan VAIN updateSelectedCategories() funktiossa!
+    private int selectedCategoryIndex = -1;  // Muokataan VAIN updateSelectedCategories() funktiossa!
 
+
+    /// <summary>
+    /// Lataa kategorialistan tietokannasta
+    /// </summary>
     private void LoadCategoryListFromDB()
     {
       lbCategories.ItemsSource = null;
@@ -43,6 +47,10 @@ namespace ProductManagement
 
     // lisää tänne kategoria handlereita
 
+    /// <summary>
+    /// Kun käyttäjä valitsee listasta jonkin toisen kategorian.
+    /// -> asetetaan uusi kategoria valituksi, piirretään sen tiedot näyttöön
+    /// </summary>
     private void lbCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       updateSelectedCategories();
@@ -50,10 +58,13 @@ namespace ProductManagement
     }
 
 
+    /// <summary>
+    /// Näyttää valitun kategorian tiedot näytöllä
+    /// </summary>
     private void showCategoryDetails()
     {
       if (selectedCategoryIndex == -1)
-      {
+      { // jos mikään kategoria ei aktiivisena, poistutaan
         tbCategoryName.Text = "";
         tbCategoryDescription.Text = "";
         tbCategoryName.IsEnabled = false;
@@ -77,6 +88,10 @@ namespace ProductManagement
     }
 
 
+    /// <summary>
+    /// Lisää uuden kategorian, asettaa sen aktiiviseksi muokkausta varten.
+    /// Lisätään kategoria tietokantaan samantien.
+    /// </summary>
     private void btnAddCategory_Click(object sender, RoutedEventArgs e)
     {
       kategoria k = new kategoria { nimi = "<uusi kategoria>", kuvaus = "kategorian kuvaus" };
@@ -92,6 +107,10 @@ namespace ProductManagement
     }
 
 
+    /// <summary>
+    /// Poistetaan kategoria. Poistetaan sekä entiteettikokoelmasta että tietokannasta.
+    /// Asetetaan listassa edellinen (tai listan ensimmäinen) kategoria valituksi.
+    /// </summary>
     private void btnRemoveCategory_Click(object sender, RoutedEventArgs e)
     {
 
@@ -116,6 +135,10 @@ namespace ProductManagement
     }
 
 
+    /// <summary>
+    /// Kategorian nimestä siirrytty jonnekkin muualle
+    /// -> tallennetaan tehdyt muutokset entiteettikokoelmaan, ei vielä tietokantaan
+    /// </summary>
     private void tbCategoryName_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbCategoryName.Text == "Name" || tbCategoryName.Text == "") return;
@@ -126,14 +149,17 @@ namespace ProductManagement
       
     }
 
+
+    /// <summary>
+    /// Kategorian kuvauksesta siirrytty muualle
+    /// -> tallennetaan tehdyt muutokset entiteettikokoelmaan, ei vielä tietokantaan
+    /// </summary>
     private void tbCategoryDescription_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbCategoryDescription.Text == "Description" || tbCategoryDescription.Text == "") return;
       var result = (from c in db.kategoriat
                     where c.idkategoria == selectedCategoryId
-                    select c).First().kuvaus = tbCategoryDescription.Text;
-      
-      
+                    select c).First().kuvaus = tbCategoryDescription.Text;   
     }
 
 
