@@ -84,6 +84,8 @@ namespace ProductManagement
       sbiStatus.Content = "Lisätty uusi kategoria";
       db.SaveChanges();
       LoadCategoryListFromDB();
+      // päivitetään myös tuotteiden kategoriacombobox
+      UpdateProductCategoryList();
 
       selectCategoryID(k.idkategoria);
       showCategoryDetails();
@@ -105,6 +107,8 @@ namespace ProductManagement
         sbiStatus.Content = string.Format("Poistettiin kategoria {0}", k.nimi);
         db.SaveChanges();
         LoadCategoryListFromDB();
+        // päivitetään myös tuotteiden kategoriacombobox
+        UpdateProductCategoryList();
         selectCategoryIndex(tmp - 1);
         showCategoryDetails();
       }

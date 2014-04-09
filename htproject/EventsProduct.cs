@@ -86,17 +86,27 @@ namespace ProductManagement
       lbProducts.SelectedValuePath = "idtuote";
       lbProducts.Items.Refresh();
 
+      UpdateProductCategoryList();
+
+    }
+
+    /// <summary>
+    /// Päivittää comboboxin kategorialistan
+    /// </summary>
+    private void UpdateProductCategoryList()
+    {
       // sidotaan tässä myös kategoriat comboboxiin
       cbProductCategory.ItemsSource = null;
       var result2 = from c in db.kategoriat
                     orderby c.nimi
                     select new { c.idkategoria, c.nimi };
-      
+
       cbProductCategory.ItemsSource = result2.ToList();
       cbProductCategory.DisplayMemberPath = "nimi";
       cbProductCategory.SelectedValuePath = "idkategoria";
       cbProductCategory.Items.Refresh();
     }
+
 
     // lisää tuotteiden handlerit tänne
 
