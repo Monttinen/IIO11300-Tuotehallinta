@@ -23,6 +23,7 @@ namespace JAMK.ICT
         public double paketinHinta { get; set; }
         public string nimi { get; set; }
         public int pakettiID { get; set; }
+        public string pakettiKuvaus { get; set; }
     
         public virtual ICollection<tuote> tuote { get; set; }
     }

@@ -38,11 +38,20 @@ namespace ProductManagement
       lbPackages.SelectedValuePath = "pakettiID";
       lbPackages.Items.Refresh();
 
+
     }
+
     // lisää tänne paketti handlereita
     private void btnPackageAdd_Click(object sender, RoutedEventArgs e)
     {
-      MessageBox.Show("toimii");
+      paketti p = new paketti { nimi = "<uusi paketti>", paketinHinta = 0.0, huoneID = 0, pakettiKuvaus = "paketin kuvaus" };
+      db.paketit.Add(p);
+      sbiStatus.Content = "Lisätty uusi paketti";
+      db.SaveChanges();
+      LoadPackageListFromDB();
+
+      selectPackageID(p.pakettiID);
+      showPackageDetails();
       
     }
 
@@ -55,7 +64,22 @@ namespace ProductManagement
 
     private void btnPackageRemove_Click(object sender, RoutedEventArgs e)
     {
+      int tmp = selectedPackageIndex;
+      var result = from p in db.paketit
+                   where p.pakettiID == selectedPackageId
+                   select p;
+      if (result.Count() > 0)
+      {
+        var p = result.First();
+        db.paketit.Remove(p);
 
+        sbiStatus.Content = string.Format("Poistettiin paketti {0}", p.nimi);
+        db.SaveChanges();
+        LoadPackageListFromDB();
+
+        selectPackageIndex(tmp - 1);
+        showPackageDetails();
+      }
     }
 
     private void btnPackageAddProduct_Click(object sender, RoutedEventArgs e)
@@ -178,13 +202,15 @@ namespace ProductManagement
                    where p.pakettiID == selectedPackageId
                    select p;
       var selectedPackage = result.FirstOrDefault();
-      /*var result2 = from p in db.tuotteet
-                    where p.paketti.Contains(selectedPackage)
-                    select new {p.idtuote, p.tuotenimi };
-      lbPackageProducts.ItemsSource = result2.ToList();
+
+      var result2 = from p in db.paketit
+                    where p.pakettiID == selectedPackageId
+                    select p.tuote;
+      if (result2.Count() < 1) return;
+      lbPackageProducts.ItemsSource = result2.First().ToList();
       lbPackageProducts.DisplayMemberPath = "tuotenimi";
       lbPackageProducts.SelectedValuePath = "idtuote";
-      lbPackageProducts.Items.Refresh();*/
+      lbPackageProducts.Items.Refresh();
     }
   }
 }
