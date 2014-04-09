@@ -27,7 +27,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabProduct" Header="Products" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
+            <TabItem x:Name="tabProduct" Header="Products" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="68" Margin="-2,-2,-9,0">
                 <Grid>
                     <Button x:Name="btnRemoveProduct" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnRemoveProduct_Click"/>
                     <Button x:Name="btnAddProduct" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnAddProduct_Click"/>
@@ -38,7 +38,7 @@
                     <Label Content="Product description" HorizontalAlignment="Left" Margin="180,132,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="cbProductCategory" HorizontalAlignment="Left" Margin="443,42,0,0" IsEnabled="False" VerticalAlignment="Top" Width="182" SelectedIndex="0" SelectionChanged="cbProductCategory_SelectionChanged" DropDownClosed="cbProductCategory_DropDownClosed"/>
                     <Label Content="Name" HorizontalAlignment="Left" Margin="180,41,0,0" VerticalAlignment="Top" Width="64" Height="23"/>
-                    <TextBox x:Name="tbProductPrice" Height="23" MinWidth="100" Margin="249,69,244,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top" LostFocus="tbProductPrice_LostFocus"/>
+                    <TextBox x:Name="tbProductPrice" Height="23" MinWidth="100" Margin="249,69,244,0" TextWrapping="Wrap" IsEnabled="False" VerticalAlignment="Top" LostFocus="tbProductPrice_LostFocus" KeyUp="tbProductPrice_KeyUp"/>
                     <Label Content="Price:" HorizontalAlignment="Left" Margin="180,69,0,0" VerticalAlignment="Top" Width="64" Height="23"/>
                 </Grid>
             </TabItem>
