@@ -91,6 +91,7 @@ namespace ProductManagement
     private void btnRemoveCategory_Click(object sender, RoutedEventArgs e)
     {
 
+      int tmp = selectedCategoryIndex;
       var result = from c in db.kategoriat
                    where c.idkategoria == selectedCategoryId
                    select c;
@@ -103,9 +104,10 @@ namespace ProductManagement
         db.SaveChanges();
         LoadCategoryListFromDB();
       }
-      selectCategoryIndex(selectedCategoryIndex -1);
+      selectCategoryIndex(tmp -1);
       showCategoryDetails();
     }
+
 
     private void tbCategoryName_LostFocus(object sender, RoutedEventArgs e)
     {
