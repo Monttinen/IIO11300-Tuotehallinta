@@ -33,7 +33,7 @@
           <Key>
             <PropertyRef Name="idkategoria" />
           </Key>
-          <Property Name="idkategoria" Type="int" Nullable="false" />
+          <Property Name="idkategoria" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="nimi" Type="varchar" MaxLength="45" />
           <Property Name="kuvaus" Type="varchar" />
         </EntityType>
@@ -44,7 +44,7 @@
           <Property Name="huoneID" Type="int" Nullable="false" />
           <Property Name="paketinHinta" Type="double" Nullable="false" />
           <Property Name="nimi" Type="varchar" MaxLength="45" />
-          <Property Name="pakettiID" Type="int" Nullable="false" />
+          <Property Name="pakettiID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="paketti_has_tuote">
           <Key>
@@ -58,7 +58,7 @@
           <Key>
             <PropertyRef Name="idtuote" />
           </Key>
-          <Property Name="idtuote" Type="int" Nullable="false" />
+          <Property Name="idtuote" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="tuotenimi" Type="varchar" MaxLength="45" />
           <Property Name="kuvaus" Type="varchar" />
           <Property Name="hinta" Type="double" />
@@ -151,7 +151,7 @@
           <Key>
             <PropertyRef Name="idkategoria" />
           </Key>
-          <Property Name="idkategoria" Type="Int32" Nullable="false" />
+          <Property Name="idkategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nimi" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="kuvaus" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="tuote" Relationship="LekaModel.tuote_has_kategoria" FromRole="kategoria" ToRole="tuote" />
@@ -163,14 +163,14 @@
           <Property Name="huoneID" Type="Int32" Nullable="false" />
           <Property Name="paketinHinta" Type="Double" Nullable="false" />
           <Property Name="nimi" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
-          <Property Name="pakettiID" Type="Int32" Nullable="false" />
+          <Property Name="pakettiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="tuote" Relationship="LekaModel.paketti_has_tuote" FromRole="paketti" ToRole="tuote" />
         </EntityType>
         <EntityType Name="tuote">
           <Key>
             <PropertyRef Name="idtuote" />
           </Key>
-          <Property Name="idtuote" Type="Int32" Nullable="false" />
+          <Property Name="idtuote" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="tuotenimi" Type="String" MaxLength="45" Unicode="false" FixedLength="false" />
           <Property Name="kuvaus" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
           <Property Name="hinta" Type="Double" />
