@@ -110,6 +110,9 @@ namespace ProductManagement
 
     // lisää tuotteiden handlerit tänne
 
+    /// <summary>
+    /// Piirtää tekstikenttiin valitun tuotteen tiedot
+    /// </summary>
     private void showProductDetails()
     {
       if (selectedProductIndex == -1)
@@ -142,7 +145,7 @@ namespace ProductManagement
         tbProductPrice.IsEnabled = true;
         cbProductCategory.IsEnabled = true;
 
-        // TODO: valitse kategoria cb:stä
+        // Valitsee kategorian comboboxiin
         if (selectedProduct.kategoria.Count > 0)
         {
           selectedProductCategoryId = selectedProduct.kategoria.First().idkategoria;
@@ -157,14 +160,22 @@ namespace ProductManagement
       }
     }
 
+
+    /// <summary>
+    /// Listasta valittu eri tuote: asetetaan tuote valituksi ja piirretään näyttöön
+    /// </summary>
     private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       updateSelectedProducts();
       showProductDetails();
     }
 
+
+    /// <summary>
+    /// Lisää tuotteen. Tallentaa samantien tietokantaan. Asettaa lisätyn tuotteen valituksi.
+    /// </summary>
     private void btnAddProduct_Click(object sender, RoutedEventArgs e)
-    {
+    { /* tuottelle id kannasta (auto increment) */
       tuote t = new tuote { tuotenimi = "<uusi tuote>", hinta = 0.0, kuvaus = "tuotteen kuvaus" };
       db.tuotteet.Add(t);
       sbiStatus.Content = "Lisätty uusi tuote";
@@ -175,6 +186,9 @@ namespace ProductManagement
       showProductDetails();
     }
 
+    /// <summary>
+    /// Poistaa tuotteen tietokannasta. Asetetaan listassa edellinen valituksi.
+    /// </summary>
     private void btnRemoveProduct_Click(object sender, RoutedEventArgs e)
     {
       int tmp = selectedProductIndex;
@@ -205,6 +219,7 @@ namespace ProductManagement
 
     }
 
+
     /// <summary>
     /// Estetään, että hintaan ei pääse syöttämään muutakuin numeroita ja pilkun
     /// </summary>
@@ -226,11 +241,15 @@ namespace ProductManagement
       return new string(text.Where(c => char.IsDigit(c) || c==',').ToArray());
     }
 
+
     private void cbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
       // ei käytetä tätä vaan DropDownClosed
     }
 
+    /// <summary>
+    /// Kun comboboxissa valittu kategoria tuotteelle, lisätään tuotteelle se kategoriaksi.
+    /// </summary>
     private void cbProductCategory_DropDownClosed(object sender, EventArgs e)
     {
       if (cbProductCategory.SelectedValue == null || selectedProductId < 0) return;
@@ -254,6 +273,11 @@ namespace ProductManagement
       }
     }
 
+
+    /// <summary>
+    /// Tallennetaan nimen tiedot heti kun focus poistuu.
+    /// Tallentaa entiteettikokoelmaan, ei tietokantaan
+    /// </summary>
     private void tbProductName_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbProductName.Text == "") return;
@@ -262,14 +286,31 @@ namespace ProductManagement
                     select p).First().tuotenimi = tbProductName.Text;
     }
 
+
+    /// <summary>
+    /// Tallennetaan tuotteen hinta kun focus poistuu.
+    /// Tallentaa entiteettikokoelmaan, ei tietokantaan.
+    /// Jos hinta ei ole kelvollinen double, tallennetaan hinnaksi 0.
+    /// </summary>
     private void tbProductPrice_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbProductPrice.Text == "") return;
+      double price;
+      if (!double.TryParse(tbProductPrice.Text, out price))
+      {
+        price = 0;
+        sbiStatus.Content = "Incalid price detected, inserted 0 instead.";
+      }
       var result = (from p in db.tuotteet
                     where p.idtuote == selectedProductId
-                    select p).First().hinta = double.Parse(tbProductPrice.Text);
+                    select p).First().hinta = price;
     }
 
+
+    /// <summary>
+    /// Tuotteen kuvaus tallennetaan entiteettikokoelmaan, ei tietokantaan,
+    /// kun siirretään focus jonnekkin muualle
+    /// </summary>
     private void tbProductDescription_LostFocus(object sender, RoutedEventArgs e)
     {
       if (tbProductDescription.Text == "") return;
