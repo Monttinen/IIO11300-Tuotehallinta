@@ -23,7 +23,7 @@ namespace ProductManagement
   public partial class MainWindow : Window
   {
     private int selectedCategoryId = -1;
-    private int selectedLBIndexCategory = -1;
+    private int selectedCategoryIndex = -1;
 
     private void LoadCategoryListFromDB()
     {
@@ -45,8 +45,14 @@ namespace ProductManagement
 
     private void lbCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      selectedLBIndexCategory = lbCategories.SelectedIndex;
-      if (selectedLBIndexCategory == -1)
+      updateSelected();
+      showCategoryDetails();
+    }
+
+
+    private void showCategoryDetails()
+    {
+      if (selectedCategoryIndex == -1)
       {
         tbCategoryName.Text = "";
         tbCategoryDescription.Text = "";
@@ -55,9 +61,6 @@ namespace ProductManagement
 
         return;
       }
-
-      selectedCategoryId = int.Parse(lbCategories.SelectedValue.ToString());
-      
 
       var result = from c in db.kategoriat
                    where c.idkategoria == selectedCategoryId
@@ -81,17 +84,16 @@ namespace ProductManagement
       db.SaveChanges();
       LoadCategoryListFromDB();
 
-      // TODO: tässä kohtaa voitaisiin valita lisätty valmiiksi
-      lbCategories.SelectedIndex = 0;
-      
+      selectCategoryID(k.idkategoria);
+      showCategoryDetails();
     }
 
     private void btnRemoveCategory_Click(object sender, RoutedEventArgs e)
     {
+
       var result = from c in db.kategoriat
                    where c.idkategoria == selectedCategoryId
                    select c;
-      
       if (result.Count() > 0)
       {
         var k = result.First();
@@ -101,6 +103,8 @@ namespace ProductManagement
         db.SaveChanges();
         LoadCategoryListFromDB();
       }
+      selectCategoryIndex(selectedCategoryIndex -1);
+      showCategoryDetails();
     }
 
     private void tbCategoryName_LostFocus(object sender, RoutedEventArgs e)
@@ -121,6 +125,46 @@ namespace ProductManagement
                     select c).First().kuvaus = tbCategoryDescription.Text;
       
       
+    }
+
+
+    /// <summary>
+    /// Asettaa näkyviin kategorian kategoriaID:n perusteella.
+    /// </summary>
+    /// <param name="id">Kategorian ID joka asetetaa näkyville.</param>
+    private void selectCategoryID(int id)
+    {
+      try { lbCategories.SelectedValue = id; }
+      catch (Exception ex) {
+        selectCategoryIndex(0);
+      }
+      updateSelected();
+    }
+
+
+    /// <summary>
+    /// Hallinnoi julkisia muuttujia, ja että ne on ajan tasalla.
+    /// </summary>
+    private void updateSelected()
+    {
+      try {
+        selectedCategoryId = int.Parse(lbCategories.SelectedValue.ToString());
+      }
+      catch (Exception ex) { selectedCategoryId = -1; }
+      selectedCategoryIndex = lbCategories.SelectedIndex;
+    }
+
+
+    /// <summary>
+    /// Asettaa näkyviin kategorian listboxin indexin perusteella
+    /// </summary>
+    /// <param name="index">Listan indexi, joka halutaan näkyville</param>
+    private void selectCategoryIndex(int index)
+    {
+      if (index < -1) return;
+      if ((lbCategories.Items.Count - 1) >= index) lbCategories.SelectedIndex = index;
+      else lbCategories.SelectedIndex = -1;
+      updateSelected();
     }
   }
 }

@@ -23,9 +23,7 @@ namespace ProductManagement
   /// </summary>
   public partial class MainWindow : Window
   {
-    private ArrayList Categories;
-    private ArrayList Products;
-    private ArrayList Packages;
+
     private LekaEntities db;
 
     private bool Connected;
@@ -38,9 +36,6 @@ namespace ProductManagement
 
       tbUser.Focus();
 
-      Categories = new ArrayList();
-      Products = new ArrayList();
-      Packages = new ArrayList();
       db = new LekaEntities();
 
     }
