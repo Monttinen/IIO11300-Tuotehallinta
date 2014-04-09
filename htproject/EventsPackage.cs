@@ -195,6 +195,10 @@ namespace ProductManagement
         tbPackageName.IsEnabled = false;
         tbPackageRoomID.IsEnabled = false;
         tbPackagePrice.IsEnabled = false;
+        lbPackageProducts.IsEnabled = false;
+        lbPackageAvailableProducts.IsEnabled = false;
+        btnPackageAddProduct.IsEnabled = false;
+        btnPackageRemoveProduct.IsEnabled = false;
 
         return;
       }
@@ -212,6 +216,10 @@ namespace ProductManagement
         tbPackageName.IsEnabled = true;
         tbPackageRoomID.IsEnabled = true;
         tbPackagePrice.IsEnabled = true;
+        lbPackageProducts.IsEnabled = true;
+        lbPackageAvailableProducts.IsEnabled = true;
+        btnPackageAddProduct.IsEnabled = true;
+        btnPackageRemoveProduct.IsEnabled = true;
       }
 
       showPackageProducts();
