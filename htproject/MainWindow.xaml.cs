@@ -75,6 +75,7 @@ namespace ProductManagement
     {
       LoadCategoryListFromDB();
       LoadProductListFromDB();
+      LoadPackageListFromDB();
     }
 
     private void Disconnect()
@@ -128,6 +129,7 @@ namespace ProductManagement
       db.SaveChanges();
       LoadCategoryListFromDB();
       LoadProductListFromDB();
+      LoadPackageListFromDB();
     }
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)

@@ -44,77 +44,19 @@
             </TabItem>
             <TabItem x:Name="tabPackage" Header="Package" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="57">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="lbPackages" HorizontalAlignment="Left" Margin="0,0,0,83" Width="173" SelectionChanged="lbPackages_SelectionChanged">
-                        <ListBoxItem Content="Paketti1"/>
-                        <ListBoxItem Content="Paketti2"/>
-                        <ListBoxItem Content="Paketti3"/>
-                        <ListBoxItem Content="Paketti4"/>
-                    </ListBox>
+                    <ListBox x:Name="lbPackages" HorizontalAlignment="Left" Margin="0,0,0,83" Width="173" SelectionChanged="lbPackages_SelectionChanged"/>
                     <Label Content="Room:" HorizontalAlignment="Left" Margin="178,31,0,0" VerticalAlignment="Top" Width="95"/>
-                    <TextBox x:Name="tbPackageRoomID" HorizontalAlignment="Left" Height="23" Margin="290,31,0,0" TextWrapping="Wrap" Text="Huonetieto hotellinxixtä" VerticalAlignment="Top" Width="156" Background="#FF8F3E3E"/>
+                    <TextBox x:Name="tbPackageRoomID" HorizontalAlignment="Left" Height="23" Margin="290,31,0,0" TextWrapping="Wrap" Text="Huonetieto hotellinxixtä" VerticalAlignment="Top" Width="156" Background="#FF8F3E3E" LostFocus="tbPackageRoomID_LostFocus"/>
                     <Label Content="Package name:" HorizontalAlignment="Left" Margin="173,0,0,0" VerticalAlignment="Top" Width="95"/>
-                    <TextBox x:Name="tbPackageName" HorizontalAlignment="Left" Height="23" Margin="290,3,0,0" TextWrapping="Wrap" Text="Paketti" VerticalAlignment="Top" Width="156"/>
-                    <ListBox x:Name="lbPackageProducts" HorizontalAlignment="Left" Margin="178,57,0,85" Width="156">
-                        <ListBoxItem Content="Aamupala"/>
-                        <ListBoxItem Content="Vuodevaatteet"/>
-                        <ListBoxItem Content="Product3"/>
-                        <ListBoxItem Content="Product4"/>
-                    </ListBox>
+                    <TextBox x:Name="tbPackageName" HorizontalAlignment="Left" Height="23" Margin="290,3,0,0" TextWrapping="Wrap" Text="Paketti" VerticalAlignment="Top" Width="156" LostFocus="tbPackageName_LostFocus"/>
+                    <ListBox x:Name="lbPackageProducts" HorizontalAlignment="Left" Margin="178,57,0,85" Width="156"/>
                     <Button x:Name="btnPackageRemove" Content="Remove" HorizontalAlignment="Left" Margin="0,0,0,27" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnPackageRemove_Click"/>
                     <Button x:Name="btnPackageAdd" Content="Add" HorizontalAlignment="Left" Margin="0,0,0,54" Width="75" Height="22" VerticalAlignment="Bottom" Click="btnPackageAdd_Click"/>
                     <Button x:Name="btnPackageRemoveProduct" Content="Remove Product-&gt;" Margin="0,0,194,85" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="107" Click="btnPackageRemoveProduct_Click"/>
                     <Button x:Name="btnPackageAddProduct" Content="&lt;-Add Product" Margin="0,0,194,112" Height="22" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="107" Click="btnPackageAddProduct_Click"/>
-                    <TextBox x:Name="tbPackagePrice" Margin="0,0,194,55" TextWrapping="Wrap" Text="Price" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="156"/>
+                    <TextBox x:Name="tbPackagePrice" Margin="0,0,194,55" TextWrapping="Wrap" Text="Price" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="156" LostFocus="tbPackagePrice_LostFocus"/>
                     <Label Content="Package price" Margin="0,0,355,45" Height="31" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="98"/>
-                    <ListBox x:Name="lbPackageAvailableProducts" Margin="0,3,0,27" HorizontalAlignment="Right" Width="189">
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="tuote"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="tuote3"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="tuote33"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="tuote234"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="tuote1234"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="tuote33"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                        <ListBoxItem Content="ListBoxItem"/>
-                    </ListBox>
+                    <ListBox x:Name="lbPackageAvailableProducts" Margin="0,3,0,27" HorizontalAlignment="Right" Width="189"/>
                 </Grid>
             </TabItem>
         </TabControl>
