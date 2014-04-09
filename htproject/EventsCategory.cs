@@ -82,7 +82,8 @@ namespace ProductManagement
       LoadCategoryListFromDB();
 
       // TODO: tässä kohtaa voitaisiin valita lisätty valmiiksi
-
+      lbCategories.SelectedIndex = 0;
+      
     }
 
     private void btnRemoveCategory_Click(object sender, RoutedEventArgs e)
