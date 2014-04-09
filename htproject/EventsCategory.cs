@@ -45,7 +45,7 @@ namespace ProductManagement
 
     private void lbCategories_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-      updateSelected();
+      updateSelectedCategories();
       showCategoryDetails();
     }
 
@@ -76,6 +76,7 @@ namespace ProductManagement
       }
     }
 
+
     private void btnAddCategory_Click(object sender, RoutedEventArgs e)
     {
       kategoria k = new kategoria { nimi = "<uusi kategoria>", kuvaus = "kategorian kuvaus" };
@@ -87,6 +88,7 @@ namespace ProductManagement
       selectCategoryID(k.idkategoria);
       showCategoryDetails();
     }
+
 
     private void btnRemoveCategory_Click(object sender, RoutedEventArgs e)
     {
@@ -103,9 +105,10 @@ namespace ProductManagement
         sbiStatus.Content = string.Format("Poistettiin kategoria {0}", k.nimi);
         db.SaveChanges();
         LoadCategoryListFromDB();
+        selectCategoryIndex(tmp - 1);
+        showCategoryDetails();
       }
-      selectCategoryIndex(tmp -1);
-      showCategoryDetails();
+
     }
 
 
@@ -140,14 +143,14 @@ namespace ProductManagement
       catch (Exception ex) {
         selectCategoryIndex(0);
       }
-      updateSelected();
+      updateSelectedCategories();
     }
 
 
     /// <summary>
-    /// Hallinnoi julkisia muuttujia, ja että ne on ajan tasalla.
+    /// Päivittää julkiset muuttujat kategorian id:stä ja indeksistä
     /// </summary>
-    private void updateSelected()
+    private void updateSelectedCategories()
     {
       try {
         selectedCategoryId = int.Parse(lbCategories.SelectedValue.ToString());
@@ -166,7 +169,7 @@ namespace ProductManagement
       if (index < -1) return;
       if ((lbCategories.Items.Count - 1) >= index) lbCategories.SelectedIndex = index;
       else lbCategories.SelectedIndex = -1;
-      updateSelected();
+      updateSelectedCategories();
     }
   }
 }

@@ -23,10 +23,56 @@ namespace ProductManagement
   public partial class MainWindow : Window
   {
     private int selectedProductId = -1;
+    private int selectedProductIndex = -1;
     private int selectedProductCategoryId = -1;
-    private tuote selectedProduct;
-    private kategoria selectedProductCategory;
 
+   
+    /// <summary>
+    /// Valitsee tuotteen id:n perusteella
+    /// </summary>
+    /// <param name="id">Tuotteen id</param>
+    private void selectProductId(int id)
+    {
+      try
+      {
+        lbProducts.SelectedValue = id;
+      }
+      catch (Exception) { selectProductIndex(0); }
+      updateSelectedProducts();
+      showProductDetails();
+    }
+
+
+    /// <summary>
+    /// Valitsee tuotteen indeksin perusteella
+    /// </summary>
+    /// <param name="index">Listboxin indeksi</param>
+    private void selectProductIndex(int index)
+    {
+      if (index < -1) return;
+      if (lbProducts.Items.Count - 1 >= index) lbProducts.SelectedIndex = index;
+      else lbProducts.SelectedIndex = -1;
+      updateSelectedProducts();
+      showProductDetails();
+    }
+
+
+    /// <summary>
+    /// Päivittää julkiset muuttujat valitun tuotteen id:stä ja indeksistä ajan tasalle
+    /// </summary>
+    private void updateSelectedProducts()
+    {
+      try {
+        selectedProductId = int.Parse(lbProducts.SelectedValue.ToString());
+      }
+      catch (Exception) { selectedProductId = -1; }
+      selectedProductIndex = lbProducts.SelectedIndex;
+    }
+
+
+    /// <summary>
+    /// Hakee tuotelistaan tietokannassa olevan version
+    /// </summary>
     private void LoadProductListFromDB()
     {
       lbProducts.ItemsSource = null;
@@ -54,10 +100,9 @@ namespace ProductManagement
 
     // lisää tuotteiden handlerit tänne
 
-
-    private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void showProductDetails()
     {
-      if (lbProducts.SelectedIndex == -1)
+      if (selectedProductIndex == -1)
       {
         tbProductName.Text = "";
         tbProductDescription.Text = "";
@@ -70,9 +115,6 @@ namespace ProductManagement
 
         return;
       }
-
-      selectedProductId = int.Parse(lbProducts.SelectedValue.ToString());
-
 
       var result = from p in db.tuotteet
                    where p.idtuote == selectedProductId
@@ -101,9 +143,14 @@ namespace ProductManagement
           selectedProductCategoryId = -1;
           cbProductCategory.SelectedValue = null;
         }
-        
-      }
 
+      }
+    }
+
+    private void lbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+      updateSelectedProducts();
+      showProductDetails();
     }
 
     private void btnAddProduct_Click(object sender, RoutedEventArgs e)
@@ -111,15 +158,16 @@ namespace ProductManagement
       tuote t = new tuote { tuotenimi = "<uusi tuote>", hinta = 0.0, kuvaus = "tuotteen kuvaus" };
       db.tuotteet.Add(t);
       sbiStatus.Content = "Lisätty uusi tuote";
-      db.SaveChanges();
+      db.SaveChanges(); 
       LoadProductListFromDB();
 
-      // TODO: tässä kohtaa voitaisiin valita lisätty valmiiksi
-
+      selectProductId(t.idtuote);
+      showProductDetails();
     }
 
     private void btnRemoveProduct_Click(object sender, RoutedEventArgs e)
     {
+      int tmp = selectedProductIndex;
       var result = from p in db.tuotteet
                    where p.idtuote == selectedProductId
                    select p;
@@ -127,12 +175,24 @@ namespace ProductManagement
       if (result.Count() > 0)
       {
         var p = result.First();
+        if (p.paketti.Count > 0)
+        { /* Tietokanta ei salli poistaa jos tuote kuuluu pakettiin, mutta entiteettikokoelma 
+           * (jostain syystä?) sallisi, siksi tarkistus tässä.*/
+          sbiStatus.Content = "You can't delete this product as it's part of a package";
+          return;
+        }
         db.tuotteet.Remove(p);
 
         sbiStatus.Content = string.Format("Poistettiin tuote {0}", p.tuotenimi);
-        db.SaveChanges();
+        try { db.SaveChanges(); }
+        catch (System.Data.Entity.Infrastructure.DbUpdateException) { 
+          sbiStatus.Content = "You can't delete this product as it's part of a package";
+        } // tämä estetään jo ylempänä, tässä kuitenkin koska näin sen tulisi kait toimia
         LoadProductListFromDB();
+        selectProductIndex(tmp - 1);
+        showProductDetails();
       }
+
     }
 
     private void cbProductCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
